@@ -1,0 +1,27 @@
+name: '吾爱破解签到'
+
+on:
+  schedule:
+    - cron: '30 1,4 * * *'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: 'setup python'
+        uses: actions/setup-python@master
+        with: 
+          python-version: 3.7
+
+      - name: requirements
+        run : pip3 install -r requirements.txt
+
+      - name: sign
+        env:
+          cookie_52pj: ${{ secrets.cookie_52pj }}
+        run: |
+          python3 52pojie.py
+         
+

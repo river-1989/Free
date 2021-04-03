@@ -1,0 +1,27 @@
+name: 天翼云盘签到
+
+on:
+  schedule:
+    - cron: 0 2,14 * * *
+  workflow_dispatch:
+jobs:
+  Cloud189Sign:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: 'setup python'
+      uses: actions/setup-python@master
+      with: 
+        python-version: 3.7
+      
+    - name: requirements
+      run: |
+        pip3 install -r requirements.txt
+        
+    - name: Cloud189sign
+      run: |
+        python3 C189sign.py
+        python3 Cloud189sign.py
+        
