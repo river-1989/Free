@@ -1,0 +1,87 @@
+name: 京东多合一签到
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 22,4 * * *'
+  watch:
+    types: started
+  repository_dispatch:
+    types: jd_sign
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - name: Checkout github_jd_scripts
+        uses: actions/checkout@v2
+        with:
+          repository: kimcrowing/JD
+          ref: master
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Cache node_modules
+        uses: actions/cache@v2
+        env:
+          cache-name: cache-node-modules
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ hashFiles('package-lock.json') }}
+      - name: npm install
+        run: npm install
+      - name: '运行 【京东多合一签到】'
+        run:
+            node JS/DailyBonus.js&
+            node JS/jd_bean_change.js&
+            node JS/jd_bean_home.js&
+            node JS/jd_bean_sign.js&
+            node JS/jd_blueCoin.js&
+            node JS/jd_bookshop.js&
+            node JS/jd_car.js&
+            node JS/jd_car_exchange.js&
+            node JS/jd_cash.js&
+            node JS/jd_club_lottery.js&
+            node JS/jd_crazy_joy.js&
+            node JS/jd_crazy_joy_coin.js&
+            node JS/jd_daily_egg.js&
+            node JS/jd_delCoupon.js&
+            node JS/jd_dreamFactory.js&
+            node JS/jd_family.js&
+            node JS/jd_fruit.js&
+            node JS/jd_get_share_code.js&
+            node JS/jd_global.js&
+            node JS/jd_global_mh.js&
+            node JS/jd_jdfactory.js&
+            node JS/jd_jdzz.js&
+            node JS/jd_joy.js&
+            node JS/jd_joy_feedPets.js&
+            node JS/jd_joy_help.js&
+            node JS/jd_joy_reward.js&
+            node JS/jd_joy_run.js&
+            node JS/jd_joy_steal.js&
+            node JS/jd_jxnc.js&
+            node JS/jd_kd.js&
+            node JS/jd_live.js&
+            node JS/jd_lotteryMachine.js&
+            node JS/jd_moneyTree.js&
+            node JS/jd_ms.js&
+            node JS/jd_necklace.js&
+            node JS/jd_newYearMoney.js&
+            node JS/jd_newYearMoney_lottery.js&
+            node JS/jd_pet.js&
+            node JS/jd_pigPet.js&
+            node JS/jd_plantBean.js&
+            node JS/jd_rankingList.js&
+            node JS/jd_redPacket.js&
+            node JS/jd_sgmh.js&
+            node JS/jd_shop.js&
+            node JS/jd_small_home.js&
+            node JS/jd_speed.js&
+            node JS/jd_superMarket.js&
+            node JS/jd_syj.js&
+            node JS/jd_unsubscribe.js&
+            node JS/jd_xg.js&
+            node JS/jd_xgyl.js&
+            node JS/jx_sign.js
