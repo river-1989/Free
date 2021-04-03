@@ -3,7 +3,7 @@ name: 京东多合一签到
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 22,4 * * *'
+    - cron: '0 */2 * * *'
   watch:
     types: started
   repository_dispatch:
@@ -16,7 +16,7 @@ jobs:
       - name: Checkout github_jd_scripts
         uses: actions/checkout@v2
         with:
-          repository: kimcrowing/JD
+          repository: river-1989/Free
           ref: master
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v1
